@@ -26,11 +26,11 @@ ui <- fluidPage(
       
       sliderInput("day",
                   "Day",
-                  min = 1/22/2020,
-                  max = 7/5/2020,
-                  step = 1,
+                  min = 3/5/2020,
+                  max = 3/25/2020,
+                  step = 5,
                   sep = "",
-                  value = 1/22/20),
+                  value = 3/5/2020),
       
       numericInput("pop_min",
                    "Minimum Population (in millions)",
