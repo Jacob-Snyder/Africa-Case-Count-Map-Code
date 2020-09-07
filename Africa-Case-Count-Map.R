@@ -14,6 +14,8 @@ library(spData)
 library(dplyr)
 install.packages("readxl")
 library("readxl")
+
+Africa_Case_Count_Data <- read_excel("Modified Africa Case Count Data.xlsx")
 # Define UI for application that filters map points based on year and minimum population
 ui <- fluidPage(
   
@@ -55,7 +57,7 @@ server <- function(input, output) {
   output$map <- renderLeaflet({
     
     pop_by_year <- filter(urban_agglomerations, 
-                          year == input$year,
+                          day == input$day,
                           population_millions > input$pop_min)
     
     leaflet(data = pop_by_year) %>%
@@ -66,7 +68,7 @@ server <- function(input, output) {
   output$table <- renderDataTable({
     
     pop_by_year <- filter(urban_agglomerations, 
-                          year == input$year,
+                          day == input$day,
                           population_millions > input$pop_min)
     
     pop_by_year
