@@ -12,24 +12,25 @@ library(shiny)
 library(leaflet)
 library(spData)
 library(dplyr)
-
+install.packages("readxl")
+library("readxl")
 # Define UI for application that filters map points based on year and minimum population
 ui <- fluidPage(
   
   # Application title
-  titlePanel("Global Population Growth"),
+  titlePanel("Daily COVID Case Counts in Africa"),
   
   # Sidebar with a slider input for year, numeric input for population 
   sidebarLayout(
     sidebarPanel(
       
-      sliderInput("year",
-                  "Year",
-                  min = 1960,
-                  max = 2035,
-                  step = 5,
+      sliderInput("day",
+                  "Day",
+                  min = 1/22/2020,
+                  max = 7/5/2020,
+                  step = 1,
                   sep = "",
-                  value = 1960),
+                  value = 1/22/20),
       
       numericInput("pop_min",
                    "Minimum Population (in millions)",
