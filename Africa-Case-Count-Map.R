@@ -34,10 +34,10 @@ ui <- fluidPage(
                   sep = "",
                   value = 3/5/2020),
       
-      numericInput("pop_min",
-                   "Minimum Population (in millions)",
+      numericInput("case_count",
+                   "Minimum Case Count",
                    min = 0,
-                   max = 20,
+                   max = 155,
                    value = 10)
     ),
     
@@ -56,9 +56,9 @@ server <- function(input, output) {
   
   output$map <- renderLeaflet({
     
-    pop_by_year <- filter(urban_agglomerations, 
+      pop_by_year <- filter(Africa_Case_Count_Data, 
                           day == input$day,
-                          population_millions > input$pop_min)
+                          case_count > input$pop_min)
     
     leaflet(data = pop_by_year) %>%
       addTiles() %>%
@@ -67,9 +67,9 @@ server <- function(input, output) {
   
   output$table <- renderDataTable({
     
-    pop_by_year <- filter(urban_agglomerations, 
+    pop_by_year <- filter(Africa_Case_Count_Data, 
                           day == input$day,
-                          population_millions > input$pop_min)
+                          case_count > input$pop_min)
     
     pop_by_year
     
