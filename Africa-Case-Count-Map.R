@@ -7,6 +7,7 @@
 #    http://shiny.rstudio.com/
 #
 install.packages("sf")
+install.packages("shiny")
 library(sf)
 library(shiny)
 library(leaflet)
@@ -20,7 +21,7 @@ Africa_Case_Count_Data <- read_excel("Modified Africa Case Count Data.xlsx")
 ui <- fluidPage(
   
   # Application title
-  titlePanel("Daily COVID Case Counts in Africa"),
+  titlePanel("June COVID Case Counts in Africa"),
   
   # Sidebar with a slider input for year, numeric input for population 
   sidebarLayout(
@@ -28,17 +29,17 @@ ui <- fluidPage(
       
       sliderInput("day",
                   "Day",
-                  min = 3/5/2020,
-                  max = 3/25/2020,
-                  step = 5,
+                  min = 2,
+                  max = 30,
+                  step = 2,
                   sep = "",
-                  value = 3/5/2020),
+                  value = 2),
       
       numericInput("case_count",
                    "Minimum Case Count",
                    min = 0,
-                   max = 155,
-                   value = 10)
+                   max = 1600,
+                   value = 0)
     ),
     
     # Show the map and table
@@ -56,22 +57,22 @@ server <- function(input, output) {
   
   output$map <- renderLeaflet({
     
-      pop_by_year <- filter(Africa_Case_Count_Data, 
-                          day == input$day,
-                          case_count > input$pop_min)
+      casecount_by_day <- filter(Africa_Case_Count_Data, 
+                          Day == input$day,
+                          COVID Case Count > input$case_count)
     
-    leaflet(data = pop_by_year) %>%
+    leaflet(data = casecount_by_day) %>%
       addTiles() %>%
       addMarkers()
   })
   
   output$table <- renderDataTable({
     
-    pop_by_year <- filter(Africa_Case_Count_Data, 
-                          day == input$day,
-                          case_count > input$pop_min)
+    casecount_by_day <- filter(Africa_Case_Count_Data, 
+                          Day == input$day,
+                          COVID Case Count > input$case_count)
     
-    pop_by_year
+    casecount_by_day
     
   })
 }
