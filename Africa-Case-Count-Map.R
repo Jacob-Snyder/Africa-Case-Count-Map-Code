@@ -16,6 +16,10 @@ library(dplyr)
 install.packages("readxl")
 library("readxl")
 
+#downloading rgdal to read Africa shapefile
+install.packages("rgdal")
+library(rgdal)
+
 Africa_Case_Count_Data <- read_excel("Modified Africa Case Count Data.xlsx")
 # Define UI for application that filters map points based on year and minimum population
 ui <- fluidPage(
@@ -47,9 +51,9 @@ ui <- fluidPage(
       # plotOutput("distPlot"),
       leafletOutput("map"),
       dataTableOutput("table")
+      )
     )
   )
-)
 
 # Define server logic required to draw a map and table
 server <- function(input, output) {
@@ -59,9 +63,9 @@ server <- function(input, output) {
     
       casecount_by_day <- filter(Africa_Case_Count_Data, 
                           Day == input$day,
-                          COVID Case Count > input$case_count)
+                          Case_Count > input$case_count)
     
-    leaflet(data = casecount_by_day) %>%
+    leaflet(data = casecount_by_day) %>% 
       addTiles() %>%
       addMarkers()
   })
@@ -70,7 +74,7 @@ server <- function(input, output) {
     
     casecount_by_day <- filter(Africa_Case_Count_Data, 
                           Day == input$day,
-                          COVID Case Count > input$case_count)
+                          Case_Count > input$case_count)
     
     casecount_by_day
     
