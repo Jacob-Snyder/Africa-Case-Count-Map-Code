@@ -36,15 +36,11 @@ world_spdf$casecount <- "Modified Africa Case Count Data"
 # load ggplot2
 library(ggplot2)
 
-# Distribution of the population per country?
+# Checking the distribution of the casecount dataset
+#to understand what color scale I should use
 world_spdf@data %>% 
-  ggplot( aes(x=as.numeric(POP2005))) + 
+  ggplot( aes(x=as.numeric(casecount))) + 
   geom_histogram(bins=20, fill='#69b3a2', color='white') +
   xlab("Population (M)") + 
   theme_bw()
 
-Africa_Case_Count_Data@data %>%
-  ggplot(aes(x = as.numeric(Case_Count))) +
-  geom_histogram(bins = 20, fill='#69b3a2', color="white")+
-  xlab("Case Count") + 
-  theme_bw()
