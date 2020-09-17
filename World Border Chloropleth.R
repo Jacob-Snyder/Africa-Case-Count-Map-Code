@@ -41,6 +41,14 @@ library(ggplot2)
 world_spdf@data %>% 
   ggplot( aes(x=as.numeric(casecount))) + 
   geom_histogram(bins=20, fill='#69b3a2', color='white') +
-  xlab("Population (M)") + 
+  xlab("Case Count") + 
   theme_bw()
 
+#coloring according to bins (as opposed to quantiles or
+#Numeric palettes)
+# Bin
+m <- leaflet(world_spdf)%>% 
+  addTiles()  %>% 
+  setView( lat=10, lng=0 , zoom=2) %>%
+  addPolygons( stroke = FALSE, fillOpacity = 0.5, smoothFactor = 0.5, color = ~colorBin("YlOrRd", casecount)(casecount) )
+m
